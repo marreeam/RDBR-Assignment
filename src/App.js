@@ -1,8 +1,15 @@
 import React from "react";
-import Header from "./components/Header/header";
+import Home from "./home";
+
+
+
 function App() {
+
+
+
+
   return (
-    <Header/>
+    <Home/>
   )
 }
 
