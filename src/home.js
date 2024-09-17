@@ -2,7 +2,7 @@ import React, { useState,createContext, useEffect } from "react";
 import Header from "./components/Header/header";
 import SearchBar from "./components/searchBar/searchBar";
 import Card from "./components/Card/card";
-
+import AppliedFilters from "./components/AppliedFilters/AppliedFilters";
 export const ThemeContext = createContext();
 
 
@@ -16,6 +16,7 @@ const [maxSelectedPrice, setMaxSelectedPrice] = useState(null);
 const [minSelectedArea, setMinSelectedArea] = useState(null);
 const [maxSelectedArea, setMaxSelectedArea] = useState(null);
 const [bedrooms, setBedrooms] = useState('');
+const [selectedRegionNames, setSelectedRegionNames] = useState([]); 
 
 useEffect(() => {
   fetch('https://api.real-estate-manager.redberryinternship.ge/api/real-estates', {
@@ -61,11 +62,17 @@ useEffect(()=>{
 
 
   return (
-    <ThemeContext.Provider value={{ setRealEstate,selectedRegion,setSelectedRegion,setMinSelectedPrice,setMaxSelectedPrice,setMinSelectedArea, setMaxSelectedArea,setBedrooms }}>
+    <ThemeContext.Provider value={{ setRealEstate,selectedRegion,setSelectedRegion,setMinSelectedPrice,setMaxSelectedPrice,setMinSelectedArea, setMaxSelectedArea,setBedrooms,selectedRegionNames, setSelectedRegionNames,selectedRegion }}>
  <div> 
       <Header/>
+      <SearchBar />
+      <AppliedFilters />
+   
       <Card filteredRealEstate={filteredRealEstate}/>
-    <SearchBar />
+
+  
+    
+    
 
 
     </div>
