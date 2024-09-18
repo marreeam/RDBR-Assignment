@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext,createContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import BoxModel from '../boxModel/boxModel.js'; // Import the BoxModel component
 import box from '../../../assets/checkbox.png'; // Unchecked image
 import checkedbox from '../../../assets/checkbox1.png'; // Checked image
@@ -9,7 +9,7 @@ const Region = () => {
   const [tempSelectedRegion, setTempSelectedRegion] = useState([]); // Temporary selected region IDs
   const [tempSelectedRegionNames, setTempSelectedRegionNames] = useState([]); // Temporary selected region names
 
-  const { setSelectedRegion, setSelectedRegionNames } = useContext(ThemeContext); // Using context from Home
+  const { setSelectedRegion, setSelectedRegionNames,selectedRegion,selectedRegionNames } = useContext(ThemeContext); // Using context from Home
 
   useEffect(() => {
     fetch('https://api.real-estate-manager.redberryinternship.ge/api/regions')
@@ -17,6 +17,13 @@ const Region = () => {
       .then((data) => setRegions(data))
       .catch((error) => console.error('Error fetching regions:', error));
   }, []);
+
+  
+  useEffect(() => {
+    setTempSelectedRegion(selectedRegion);
+    setTempSelectedRegionNames(selectedRegionNames);
+  }, [selectedRegion, selectedRegionNames]);
+
 
   // Handle region selection
   const handleRegionSelect = (regionId, regionName) => {

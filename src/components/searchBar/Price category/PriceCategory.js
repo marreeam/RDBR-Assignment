@@ -3,9 +3,9 @@ import BoxModel from '../boxModel/boxModel';
 import ForPriceAndArea from '../boxModel/forPriceAndArea';
 import { ThemeContext } from '../../../home.js';
 const PriceCategory = () => {
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const { setMinSelectedPrice, setMaxSelectedPrice } = useContext(ThemeContext); // Get context for price filter
+ 
+ 
+  const { setMinSelectedPrice, setMaxSelectedPrice,minPrice, setMinPrice,maxPrice, setMaxPrice} = useContext(ThemeContext); // Get context for price filter
   const handleChoosePrice = () => {
     // Set the selected min and max price in the context
     setMinSelectedPrice(minPrice);

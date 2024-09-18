@@ -3,9 +3,8 @@ import BoxModel from '../boxModel/boxModel';
 import ForPriceAndArea from '../boxModel/forPriceAndArea';
 import { ThemeContext } from '../../../home.js';
 const Area = () => {
-  const [minArea, setMinArea] = useState('');
-  const [maxArea, setMaxArea] = useState('');
-  const { setMinSelectedArea, setMaxSelectedArea} = useContext(ThemeContext);
+
+  const { setMinSelectedArea, setMaxSelectedArea,minArea,setMinArea,maxArea,setMaxArea} = useContext(ThemeContext);
   const handleChooseArea = () => {
     // Set the selected min and max area in the context
     setMinSelectedArea(minArea);

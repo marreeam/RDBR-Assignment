@@ -1,11 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import BoxModel from "../boxModel/boxModel";
 import { ThemeContext } from '../../../home.js';
 
 const Bedrooms = () => {
   const [localBedrooms, setLocalBedrooms] = useState('');  // Local state for bedroom input
-  const { setBedrooms } = useContext(ThemeContext);  // Get the global setBedrooms function from context
+  const { setBedrooms,bedrooms } = useContext(ThemeContext);  // Get the global setBedrooms function from context
 
+  useEffect(() => {
+    setLocalBedrooms(bedrooms);  // Update local state whenever global bedrooms state changes
+  }, [bedrooms]);
   // Function to handle input change for bedrooms
   const handleBedroomsChange = () => {
     // Set the global bedrooms state when "Choose" is clicked

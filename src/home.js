@@ -1,8 +1,10 @@
 import React, { useState,createContext, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/header";
 import SearchBar from "./components/searchBar/searchBar";
 import Card from "./components/Card/card";
 import AppliedFilters from "./components/AppliedFilters/AppliedFilters";
+import RealEstateDetail from "./components/addListing/addLinsting";
 export const ThemeContext = createContext();
 
 
@@ -17,6 +19,10 @@ const [minSelectedArea, setMinSelectedArea] = useState(null);
 const [maxSelectedArea, setMaxSelectedArea] = useState(null);
 const [bedrooms, setBedrooms] = useState('');
 const [selectedRegionNames, setSelectedRegionNames] = useState([]); 
+const [minPrice, setMinPrice] = useState('');
+const [maxPrice, setMaxPrice] = useState('');
+const [minArea, setMinArea] = useState('');
+const [maxArea, setMaxArea] = useState('');
 
 useEffect(() => {
   fetch('https://api.real-estate-manager.redberryinternship.ge/api/real-estates', {
@@ -62,15 +68,24 @@ useEffect(()=>{
 
 
   return (
-    <ThemeContext.Provider value={{ setRealEstate,selectedRegion,setSelectedRegion,setMinSelectedPrice,setMaxSelectedPrice,setMinSelectedArea, setMaxSelectedArea,setBedrooms,selectedRegionNames, setSelectedRegionNames,selectedRegion }}>
+    <ThemeContext.Provider value={{ realEstate,setRealEstate,selectedRegion,setSelectedRegion,setMinSelectedPrice,setMaxSelectedPrice,setMinSelectedArea, setMaxSelectedArea,setBedrooms,bedrooms,selectedRegionNames, setSelectedRegionNames,selectedRegion,minSelectedPrice,maxSelectedPrice,minPrice,maxPrice,setMaxPrice,setMinPrice ,minSelectedArea,maxSelectedArea,minArea,setMinArea,maxArea,setMaxArea}}>
  <div> 
-      <Header/>
-      <SearchBar />
-      <AppliedFilters />
-   
-      <Card filteredRealEstate={filteredRealEstate}/>
-
-  
+ <Header />
+      <Routes>
+        {/* Home Route */}
+        <Route
+          path="/"
+          element={
+            <>
+              <SearchBar />
+              <AppliedFilters />
+              <Card filteredRealEstate={filteredRealEstate} />
+            </>
+          }
+        />
+        {/* Real Estate Detail Route */}
+        <Route path="/real-estate/:id" element={<RealEstateDetail />} />
+      </Routes>
     
     
 
