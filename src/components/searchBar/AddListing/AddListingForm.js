@@ -53,12 +53,12 @@ const AddListingForm = () => {
 
 
   return (
-    <div>
-      <h1 className="absolute top-[162px] left-[787px] text-[32px]">ლისტინგის დამატება</h1>
+    <div >
+      <h1 className="absolute top-[162px] left-[787px] text-[32px] ">ლისტინგის დამატება</h1>
       
       {/* Form container */}
       <div className="absolute w-[790px] h-[1211px] top-[261px] left-[566px] gap-[80px]">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} >
           
           {/* Transaction Type */}
           <div>
@@ -86,10 +86,10 @@ const AddListingForm = () => {
             )}
           </div>
           
-          {/* Name and Surname Row */}
+          <h2>მდებარეობა</h2>
           <div className="flex space-x-4 mb-4 mt-4">
             <div className="w-1/2">
-              <label className="block mb-2">მისამართი *</label>
+              <label className="block mb-2 text-[14px]">მისამართი *</label>
               <input
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('address', {
@@ -104,7 +104,7 @@ const AddListingForm = () => {
             </div>
 
             <div className="w-1/2">
-              <label className="block mb-2">საფოსტო ინდექსი *</label>
+              <label className="block mb-2 text-[14px]">საფოსტო ინდექსი *</label>
               <input
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('zip_code', {
