@@ -1,6 +1,8 @@
 import React from "react";
 
 const ForPriceAndArea = ({OptionsForArea,OptionsForPrice,TitlesForArea,TitlesForPrice,minPrice,maxPrice,setMinPrice,setMaxPrice,setMinArea,setMaxArea,minArea,maxArea,isPrice})=>{
+  const isPriceInvalid= isPrice && minPrice && maxPrice && Number(minPrice) > Number(maxPrice); 
+  const isAreaInvalid=  minArea && maxArea&& Number(minArea) > Number(maxArea); 
     return(
         <div>
               <div className="flex justify-between gap-[32px] mb-4">
@@ -26,6 +28,17 @@ const ForPriceAndArea = ({OptionsForArea,OptionsForPrice,TitlesForArea,TitlesFor
 
         </div>
       </div>
+
+      {isPriceInvalid && (
+        <p className="text-red-500">
+          შეიყვანეთ ვალიდური მონაცემები
+        </p>
+      )}
+       {isAreaInvalid && (
+        <p className="text-red-500">
+          შეიყვანეთ ვალიდური მონაცემები
+        </p>
+      )}
       <div className="grid grid-cols-2 gap-4 text-left">
        {(isPrice ? TitlesForPrice : TitlesForArea).map((title, colIndex) => (
           <div key={colIndex}>

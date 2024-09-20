@@ -46,10 +46,10 @@ function Home() {
     if (Array.isArray(realEstate) && realEstate.length > 0) {
       const filtered = realEstate.filter((item) => {
         const matchesRegion =  selectedRegion?.includes(item.city?.region?.id);
-        const matchesMinPrice =  item.price >= parseInt(minSelectedPrice?.replace(',', '')); // Handle min price
-        const matchesMaxPrice =  item.price <= parseInt(maxSelectedPrice?.replace(',', '')); // Handle max price
-        const matchesMinArea =  item.area >= parseInt(minSelectedArea?.replace(',', '')); // Handle min Area
-        const matchesMaxArea =  item.area <= parseInt(maxSelectedArea?.replace(',', '')); // Handle max Area
+        const matchesMinPrice =  item.price >= parseInt(minSelectedPrice?.replace(',', ''))&&item.price <=parseInt(minSelectedPrice?.replace(',', '')); // Handle min price
+        const matchesMaxPrice =  item.price <= parseInt(maxSelectedPrice?.replace(',', ''))&& item.price >=parseInt(maxSelectedPrice?.replace(',', '')); // Handle max price
+        const matchesMinArea =  item.area >= parseInt(minSelectedArea?.replace(',', ''))&&item.area <= parseInt(minSelectedArea?.replace(',', '')); // Handle min Area
+        const matchesMaxArea =  item.area <= parseInt(maxSelectedArea?.replace(',', ''))&&item.area >= parseInt(maxSelectedArea?.replace(',', '')); // Handle max Area
         const matchesBedrooms =  item.bedrooms === Number(bedrooms);
 
         return matchesRegion || matchesMinPrice || matchesMaxPrice || matchesMinArea || matchesMaxArea || matchesBedrooms;
