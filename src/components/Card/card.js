@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import BedIcon from "../../assets/bed.png";
 import Vector from "../../assets/Vector.png";
 import Vector2 from "../../assets/Vector2.png";

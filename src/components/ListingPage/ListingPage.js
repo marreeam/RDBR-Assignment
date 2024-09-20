@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../home";
-import Card from "../Card/card"
+import Card from "../Card/card";
 import { handleDeleteListing } from "./handleDeleteListing";
 import PropertyDetails from "./propertyDetails";
 import AgentInfo from "./agentInfo";
@@ -10,7 +10,7 @@ import SimilarListingsCarousel from "./similarListingsCarosuel";
 import arrow from "../../assets/arrow.png";
 
 const RealEstateDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Track ID from URL parameters
   const [realEstateId, setRealEstateId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -18,11 +18,13 @@ const RealEstateDetail = () => {
   const [similarListings, setSimilarListings] = useState([]);
   const navigate = useNavigate();
 
+  // Effect to fetch the listing data when the component mounts or `id` changes
   useEffect(() => {
     fetchRealEstateDetails(id, setRealEstateId, setLoading, realEstate, setSimilarListings);
-  }, [id, realEstate]);
+  }, [id, realEstate]); // Listen to changes in `id`
 
   const fetchRealEstateDetails = (id, setRealEstateId, setLoading, realEstate, setSimilarListings) => {
+    // setLoading(true); // Set loading state true when fetching new data
     fetch(`https://api.real-estate-manager.redberryinternship.ge/api/real-estates/${id}`, {
       headers: {
         accept: "application/json",
@@ -31,13 +33,13 @@ const RealEstateDetail = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setRealEstateId(data);
+        setRealEstateId(data); // Set the data for the current listing
         setLoading(false);
         if (data && data.city?.region?.id) {
           const filteredListings = realEstate.filter(
             (item) => item.city?.region?.id === data.city.region.id && item.id !== id
           );
-          setSimilarListings(filteredListings);
+          setSimilarListings(filteredListings); // Filter similar listings
         }
       })
       .catch((error) => {
@@ -45,9 +47,6 @@ const RealEstateDetail = () => {
         setLoading(false);
       });
   };
-
-  if (loading) return <p>Loading...</p>;
-  if (!realEstateId) return <p>Real Estate not found.</p>;
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
@@ -57,6 +56,8 @@ const RealEstateDetail = () => {
     setShowModal(false);
   };
 
+  if (loading) return <p>Loading...</p>;
+  if (!realEstateId) return <p>Real Estate not found.</p>;
   function close(){
     if (showModal==true){
       setShowModal(false);
@@ -64,7 +65,7 @@ const RealEstateDetail = () => {
     }
   }
   return (
-    <div onClick={ close}>
+    <div onClick={close}>
       <img
         onClick={() => navigate("/")}
         src={arrow}
@@ -80,12 +81,9 @@ const RealEstateDetail = () => {
         <p className="absolute top-[670px] left-[590px]" style={{ color: "rgba(128, 138, 147, 1)" }}>
           {realEstateId.created_at}
         </p>
-        <div className="flex flex-col p-[30px] gap-[60px]">
+        <div className="flex flex-col p-[30px] gap-[90px]">
           <PropertyDetails details={realEstateId} />
-          <div className=" relative ">
           <AgentInfo agent={realEstateId.agent} />
-          </div>
-    
           <button
             onClick={handleShowModal}
             className="rounded-[8px] p-[10px] gap-[10px] self-start"
@@ -115,4 +113,3 @@ const RealEstateDetail = () => {
 };
 
 export default RealEstateDetail;
-

@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import AgentAddModal from "./AgentAddModal";
 const AddAgent= ()=>{
+
+  const [showModal, setShowModal]=useState(false)
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  
     return (
-        <button className="w-auto h-[47px] pt-[10px] pb-[16px] pl-[10px] pr-[16px] border border-[#F93B1D] text-red-500 rounded-[10px]">
+<div  >
+
+        <button onClick={handleShowModal} className="w-auto h-[47px] pt-[10px] pb-[16px] pl-[10px] pr-[16px] bg-[#F93B1D] text-white rounded-[10px]">
         + აგენტის დამატება
-       </button>
+      </button>
+      {showModal && (
+              <AgentAddModal  closeModal={handleCloseModal}/>
+          )}
+   
+      
+      </div>
     )
 
 }

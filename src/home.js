@@ -42,19 +42,21 @@ function Home() {
   }, [location.pathname]); // Listen to the pathname and refetch when it changes to "/"
 
   useEffect(() => {
+    const isFilterNotSet=!selectedRegion.length&&!minSelectedPrice&&!maxSelectedPrice&&!minSelectedArea&&!maxSelectedArea&&!bedrooms;
     if (Array.isArray(realEstate) && realEstate.length > 0) {
       const filtered = realEstate.filter((item) => {
-        const matchesRegion = selectedRegion.length === 0 || selectedRegion.includes(item.city?.region?.id);
-        const matchesMinPrice = !minSelectedPrice || item.price >= parseInt(minSelectedPrice.replace(',', '')); // Handle min price
-        const matchesMaxPrice = !maxSelectedPrice || item.price <= parseInt(maxSelectedPrice.replace(',', '')); // Handle max price
-        const matchesMinArea = !minSelectedArea || item.area >= parseInt(minSelectedArea.replace(',', '')); // Handle min Area
-        const matchesMaxArea = !maxSelectedArea || item.area <= parseInt(maxSelectedArea.replace(',', '')); // Handle max Area
-        const matchesBedrooms = bedrooms === '' || item.bedrooms === Number(bedrooms);
+        const matchesRegion =  selectedRegion?.includes(item.city?.region?.id);
+        const matchesMinPrice =  item.price >= parseInt(minSelectedPrice?.replace(',', '')); // Handle min price
+        const matchesMaxPrice =  item.price <= parseInt(maxSelectedPrice?.replace(',', '')); // Handle max price
+        const matchesMinArea =  item.area >= parseInt(minSelectedArea?.replace(',', '')); // Handle min Area
+        const matchesMaxArea =  item.area <= parseInt(maxSelectedArea?.replace(',', '')); // Handle max Area
+        const matchesBedrooms =  item.bedrooms === Number(bedrooms);
 
-        return matchesRegion && matchesMinPrice && matchesMaxPrice && matchesMinArea && matchesMaxArea && matchesBedrooms;
+        return matchesRegion || matchesMinPrice || matchesMaxPrice || matchesMinArea || matchesMaxArea || matchesBedrooms;
       });
+      
 
-      setFilteredRealEstate(filtered);
+      setFilteredRealEstate(isFilterNotSet?realEstate:filtered);
     } else {
       setFilteredRealEstate([]);  // Ensure filteredRealEstate is always an array
     }
