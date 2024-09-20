@@ -5,7 +5,9 @@ import SearchBar from "./components/searchBar/searchBar";
 import Card from "./components/Card/card";
 import AppliedFilters from "./components/AppliedFilters/AppliedFilters";
 import RealEstateDetail from "./components/ListingPage/ListingPage";
-import { useNavigate, useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
+
+import AddListingForm from "./components/searchBar/AddListing/AddListingForm";
 
 export const ThemeContext = createContext();
 
@@ -88,6 +90,7 @@ function Home() {
           />
           {/* Real Estate Detail Route */}
           <Route path="/real-estate/:id" element={<RealEstateDetail />} />
+          <Route path="/AddListing" element={<AddListingForm />} />
         </Routes>
       </div>
     </ThemeContext.Provider>

@@ -37,10 +37,11 @@ const RealEstateDetail = () => {
         setLoading(false);
         if (data && data.city?.region?.id) {
           const filteredListings = realEstate.filter(
-            (item) => item.city?.region?.id === data.city.region.id && item.id !== id
+            (item) => item.city?.region?.id === data.city.region.id && String(item.id) !== String(id)
           );
           setSimilarListings(filteredListings); // Filter similar listings
         }
+        
       })
       .catch((error) => {
         console.error("Error fetching real estate details:", error);
@@ -107,7 +108,15 @@ const RealEstateDetail = () => {
       </p>
       <div className="relative top-[600px] left-[40px]">
         <SimilarListingsCarousel listings={similarListings} />
+    <div className="flex justify-center text-[24px]">
+        {similarListings.length===0&&(
+        <p>ამ ლოკაციაზე მსგავსი ბინები არ მოიძებნა</p>
+        
+        
+      )}
+       </div>
       </div>
+
     </div>
   );
 };
