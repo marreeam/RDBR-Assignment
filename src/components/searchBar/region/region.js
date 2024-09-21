@@ -5,18 +5,20 @@ import checkedbox from '../../../assets/checkbox1.png'; // Checked image
 import { ThemeContext } from '../../../App.js';
 
 const Region = () => {
-  const [regions, setRegions] = useState([]);
+  
   const [tempSelectedRegion, setTempSelectedRegion] = useState([]); // Temporary selected region IDs
   const [tempSelectedRegionNames, setTempSelectedRegionNames] = useState([]); // Temporary selected region names
-
+  const [regions, setRegions] = useState([]);
   const { setSelectedRegion, setSelectedRegionNames,selectedRegion,selectedRegionNames } = useContext(ThemeContext); // Using context from Home
 
   useEffect(() => {
     fetch('https://api.real-estate-manager.redberryinternship.ge/api/regions')
       .then((response) => response.json())
       .then((data) => setRegions(data))
+     
       .catch((error) => console.error('Error fetching regions:', error));
   }, []);
+
 
   
   useEffect(() => {

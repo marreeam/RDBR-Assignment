@@ -16,6 +16,7 @@ export const useRealEstateState = () => {
     const [maxArea, setMaxArea] = useState('');
 
 
+
   return {
     realEstate,
     setRealEstate,

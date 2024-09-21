@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import { useImagePreview } from '../../../hooks/useImagePreview';
+import { UseImageUnpload } from '../../../hooks/useImageUnpload';
 const AgentAddModal = ({ closeModal }) => {
-  const [selectedImage, setSelectedImage] = useState(null); // For image preview
-
+  // For image preview
+  const { selectedImage, handleImageChange, handleRemoveImage } = useImagePreview();
+  const isAgent=true;
   const {
     register,
     handleSubmit,
@@ -18,18 +20,7 @@ const AgentAddModal = ({ closeModal }) => {
   const phoneValue = watch('phone', '');
   const emailValue = watch('email', '');
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImage(imageUrl);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setSelectedImage(null); // Reset the image preview
-    resetField('avatar'); // Reset the file input field
-  };
+  
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -37,7 +28,10 @@ const AgentAddModal = ({ closeModal }) => {
     formData.append('surname', data.surname);
     formData.append('email', data.email);
     formData.append('phone', data.phone);
-    formData.append('avatar', data.avatar[0]);
+    formData.append('image', data.image[0]);
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+   }
 
     try {
       const response = await fetch(
@@ -152,44 +146,11 @@ const AgentAddModal = ({ closeModal }) => {
             </div>
           </div>
 
-          {/* Custom Avatar Upload */}
-          <label className="block mb-2">ატვირთეთ ფოტო *</label>
-          <div className="mb-4 relative w-[799px] h-[120px] border-2 border-dotted border-[#2D3648] ">
-            <input
-              id="fileInput"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              {...register('avatar', {
-                required: 'ფოტოს ატვირთვა აუცილებელია',
-                onChange: handleImageChange,
-              })}
-            />
-            <label
-              htmlFor="fileInput"
-              className="w-[24px] h-[24px] absolute left-[380px] top-[40px] bg-white rounded-full flex items-center justify-center cursor-pointer border border-[1px]"
-            >
-              {selectedImage ? (
-                <img
-                  src={selectedImage}
-                  alt="Selected Avatar"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              ) : (
-                <span className="text-2xl text-gray-500">+</span>
-              )}
-            </label>
-            {selectedImage && (
-              <button
-                type="button"
-                onClick={handleRemoveImage}
-                className="mt-2 relative left-[350px] top-[60px] text-sm text-red-500"
-              >
-                Remove Image
-              </button>
-            )}
-            {errors.avatar && <p className="text-red-500 text-sm mt-1">{errors.avatar.message}</p>}
-          </div>
+        <UseImageUnpload register={register} errors={errors} isAgent={isAgent}/>
+
+
+
+
 
           {/* Buttons */}
           <div className="flex justify-between mt-6">
