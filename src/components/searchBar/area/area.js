@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import BoxModel from '../boxModel/boxModel';
 import ForPriceAndArea from '../boxModel/forPriceAndArea';
-import { ThemeContext } from '../../../pages/home';
+import { ThemeContext } from '../../../App';
 const Area = () => {
 
   const { setMinSelectedArea, setMaxSelectedArea,minArea,setMinArea,maxArea,setMaxArea} = useContext(ThemeContext);

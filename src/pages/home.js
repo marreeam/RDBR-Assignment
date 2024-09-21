@@ -1,19 +1,17 @@
-import React, {  createContext, useEffect } from "react";
+import React, {  createContext, useEffect,useContext } from "react";
 import { useRealEstateState } from "../hooks/useRealEstate";
 import {  useLocation } from "react-router-dom";
 import MainLayout from "../templates/MainLayout";
 import SearchBar from "../components/searchBar/searchBar";
 import AppliedFilters from "../components/AppliedFilters/AppliedFilters";
 import Card from "../components/Card/card";
+import { ThemeContext } from '../App';
 
-export const ThemeContext = createContext();
 
 function Home() {
   const location = useLocation();
-  const {
-    realEstate, setRealEstate, selectedRegion, setSelectedRegion, setMinSelectedPrice, setMaxSelectedPrice, setMinSelectedArea, setMaxSelectedArea, setBedrooms, bedrooms, selectedRegionNames, setSelectedRegionNames, minSelectedPrice, maxSelectedPrice, minPrice, maxPrice, setMaxPrice, setMinPrice, minSelectedArea, maxSelectedArea, minArea, setMinArea, maxArea, setMaxArea,setFilteredRealEstate,filteredRealEstate } = useRealEstateState();
-
-
+  const { realEstate, setRealEstate, selectedRegion, setSelectedRegion, setMinSelectedPrice, setMaxSelectedPrice, setMinSelectedArea, setMaxSelectedArea, setBedrooms, bedrooms, selectedRegionNames, setSelectedRegionNames, minSelectedPrice, maxSelectedPrice, minPrice, maxPrice, setMaxPrice, setMinPrice, minSelectedArea, maxSelectedArea, minArea, setMinArea, maxArea, setMaxArea,setFilteredRealEstate,filteredRealEstate} = useContext(ThemeContext);
+  
   useEffect(() => {
     // Fetch real estate data on mount or when coming back from deletion
     fetch('https://api.real-estate-manager.redberryinternship.ge/api/real-estates', {
@@ -51,18 +49,14 @@ function Home() {
   }, [realEstate, selectedRegion, minSelectedPrice, maxSelectedPrice, minSelectedArea, maxSelectedArea, bedrooms]);
 
   return (
-    <ThemeContext.Provider value={{ realEstate, setRealEstate, selectedRegion, setSelectedRegion, setMinSelectedPrice, setMaxSelectedPrice, setMinSelectedArea, setMaxSelectedArea, setBedrooms, bedrooms, selectedRegionNames, setSelectedRegionNames, selectedRegion, minSelectedPrice, maxSelectedPrice, minPrice, maxPrice, setMaxPrice, setMinPrice, minSelectedArea, maxSelectedArea, minArea, setMinArea, maxArea, setMaxArea,setFilteredRealEstate,filteredRealEstate }}>
-       <MainLayout>
-       <SearchBar />
-                <AppliedFilters />
-                <div className=" relative top-[225px] left-[162px]">
-                <Card  filteredRealEstate={filteredRealEstate} />
-                </div>
-
-       </MainLayout>
-
-
-    </ThemeContext.Provider>
+   <>
+      <SearchBar />
+        <AppliedFilters />
+        <div className=" relative top-[225px] left-[162px]">
+        <Card  filteredRealEstate={filteredRealEstate} />
+        </div>
+      
+</>
   );
 }
 

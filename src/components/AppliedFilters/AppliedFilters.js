@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from "../../pages/home";
+import { ThemeContext } from "../../App";
 import deleteIcon from "../../assets/x.png";
 const AppliedFilters = () => {
   const { 

@@ -2,11 +2,12 @@ import React from 'react';
 import Header from '../components/Header/header';
 import AppRoutes from '../routes/AppRoutes';
 
-const MainLayout = () => {
+const MainLayout = ({children}) => {
   return (
     <div>
       <Header />
-    <AppRoutes/>
+      <main>{children}</main>
+
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ThemeContext } from './home';
+import { ThemeContext } from '../App';
 
 import { handleDeleteListing } from "../components/ListingPage/handleDeleteListing";
 import PropertyDetails from "../components/ListingPage/propertyDetails";

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const AgentAddModal = ({  closeModal }) => {
-  const [selectedImage, setSelectedImage] = useState(null); // To store and show the selected image
+const AgentAddModal = ({ closeModal }) => {
+  const [selectedImage, setSelectedImage] = useState(null); // For image preview
 
   const {
     register,
@@ -12,7 +12,7 @@ const AgentAddModal = ({  closeModal }) => {
     formState: { errors },
   } = useForm();
 
-  // Watch the values of each field to validate as the user types
+  // Watch the values to validate
   const nameValue = watch('name', '');
   const surnameValue = watch('surname', '');
   const phoneValue = watch('phone', '');
@@ -25,6 +25,7 @@ const AgentAddModal = ({  closeModal }) => {
       setSelectedImage(imageUrl);
     }
   };
+
   const handleRemoveImage = () => {
     setSelectedImage(null); // Reset the image preview
     resetField('avatar'); // Reset the file input field
@@ -32,13 +33,11 @@ const AgentAddModal = ({  closeModal }) => {
 
   const onSubmit = async (data) => {
     const formData = new FormData();
-
-    // Append form fields to formData
     formData.append('name', data.name);
     formData.append('surname', data.surname);
     formData.append('email', data.email);
     formData.append('phone', data.phone);
-    formData.append('avatar', data.avatar[0]); // Append the file
+    formData.append('avatar', data.avatar[0]);
 
     try {
       const response = await fetch(
@@ -56,10 +55,9 @@ const AgentAddModal = ({  closeModal }) => {
       if (response.ok) {
         const result = await response.json();
         console.log('Success:', result);
-        closeModal(); // Close modal on success
+        closeModal();
       } else {
         console.error('Error:', response.statusText);
-        // Handle error
       }
     } catch (error) {
       console.error('Error:', error);
@@ -81,7 +79,7 @@ const AgentAddModal = ({  closeModal }) => {
               <input
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('name', {
-                  required: true,
+                  required: 'სახელი აუცილებელია',
                   minLength: {
                     value: 2,
                     message: 'სახელი უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან',
@@ -99,7 +97,7 @@ const AgentAddModal = ({  closeModal }) => {
               <input
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('surname', {
-                  required: true,
+                  required: 'გვარი აუცილებელია',
                   minLength: {
                     value: 2,
                     message: 'გვარი უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან',
@@ -121,7 +119,7 @@ const AgentAddModal = ({  closeModal }) => {
                 type="tel"
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('phone', {
-                  required: true,
+                  required: 'ტელ-ნომერი აუცილებელია',
                   pattern: {
                     value: /^[0-9]{9}$/,
                     message: 'ტელეფონის ნომერი უნდა იყოს ფორმატში 9 ციფრი',
@@ -140,7 +138,7 @@ const AgentAddModal = ({  closeModal }) => {
                 type="email"
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('email', {
-                  required: true,
+                  required: 'ელ-ფოსტა აუცილებელია',
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@redberry\.ge$/,
                     message: 'ელ-ფოსტა უნდა მთავრდებოდეს @redberry.ge-თი',
@@ -157,21 +155,16 @@ const AgentAddModal = ({  closeModal }) => {
           {/* Custom Avatar Upload */}
           <label className="block mb-2">ატვირთეთ ფოტო *</label>
           <div className="mb-4 relative w-[799px] h-[120px] border-2 border-dotted border-[#2D3648] ">
-            
-            {/* Hidden File Input */}
             <input
               id="fileInput"
               type="file"
-              
               accept="image/*"
-              className="  hidden"
+              className="hidden"
               {...register('avatar', {
-                required: true,
+                required: 'ფოტოს ატვირთვა აუცილებელია',
                 onChange: handleImageChange,
               })}
             />
-
-            {/* Custom Input Label */}
             <label
               htmlFor="fileInput"
               className="w-[24px] h-[24px] absolute left-[380px] top-[40px] bg-white rounded-full flex items-center justify-center cursor-pointer border border-[1px]"
@@ -183,24 +176,19 @@ const AgentAddModal = ({  closeModal }) => {
                   className="w-full h-full object-cover rounded-full"
                 />
               ) : (
-                
-                
                 <span className="text-2xl text-gray-500">+</span>
-                
               )}
             </label>
             {selectedImage && (
               <button
                 type="button"
                 onClick={handleRemoveImage}
-                className="mt-2 relative  left-[350px] top-[60px] text-sm text-red-500"
+                className="mt-2 relative left-[350px] top-[60px] text-sm text-red-500"
               >
                 Remove Image
               </button>
             )}
-            {errors.avatar && (
-              <p className="text-red-500 text-sm mt-1">{errors.avatar.message}</p>
-            )}
+            {errors.avatar && <p className="text-red-500 text-sm mt-1">{errors.avatar.message}</p>}
           </div>
 
           {/* Buttons */}
