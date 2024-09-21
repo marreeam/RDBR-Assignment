@@ -38,10 +38,20 @@ const Card = ({ filteredRealEstate }) => {
                     <img className="w-[24px] h-[24px]" src={Vector2} alt="Zip code" /> {item.zip_code}
                   </p>
                 </div>
+       
               </div>
+           
             </div>
           </Link>
         ))
+      )}
+               {filteredRealEstate.length === 0 && (
+        <p
+          className="font-fira-go text-[20px] font-normal leading-[24px] text-center w-[504px] h-[24px]   absolute"
+          style={{ color: 'rgba(2, 21, 38, 0.7)' }}
+        >
+          აღნიშნული მონაცემებით განცხადება არ მოძებნა
+        </p>
       )}
     </div>
   );

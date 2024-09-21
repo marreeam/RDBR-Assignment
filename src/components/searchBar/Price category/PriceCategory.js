@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react';
 import BoxModel from '../boxModel/boxModel';
 import ForPriceAndArea from '../boxModel/forPriceAndArea';
-import { ThemeContext } from '../../../home.js';
+import { ThemeContext } from '../../../pages/home';
 const PriceCategory = () => {
  
  

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import icon from '../../../assets/Icon.png'; // Import your default icon
-import icon1 from '../../../assets/Icon1.png'; // Import your alternate icon
-// import { ThemeContext } from '../App';
+import icon from '../../../assets/Icon.png'; 
+import icon1 from '../../../assets/Icon1.png'; 
+
 const BoxModel = ({ title, children, insideTitle,selectedRegion,minPrice, maxPrice,onChooseHandle}) => {
-  const [isOpen, setIsOpen] = useState(false); // To manage visibility of the box
-  const [iconState, setIconState] = useState(icon); // Manage icon state
-  // const {  setRealEstate } = useContext(ThemeContext);
-  // Toggle the dropdown and icon state
+  const [isOpen, setIsOpen] = useState(false); 
+  const [iconState, setIconState] = useState(icon); 
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
     setIconState(isOpen ? icon : icon1); // Switch icon when dropdown is toggled

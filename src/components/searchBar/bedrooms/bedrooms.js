@@ -1,6 +1,6 @@
 import React, { useState, useContext,useEffect } from 'react';
 import BoxModel from "../boxModel/boxModel";
-import { ThemeContext } from '../../../home.js';
+import { ThemeContext } from '../../../pages/home';
 
 const Bedrooms = () => {
   const [localBedrooms, setLocalBedrooms] = useState('');  // Local state for bedroom input

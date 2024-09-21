@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../../home";
-import Card from "../Card/card";
-import { handleDeleteListing } from "./handleDeleteListing";
-import PropertyDetails from "./propertyDetails";
-import AgentInfo from "./agentInfo";
-import DeleteConfirmationModal from "./deleteConfirmationModal";
-import SimilarListingsCarousel from "./similarListingsCarosuel";
-import arrow from "../../assets/arrow.png";
+import { ThemeContext } from './home';
+
+import { handleDeleteListing } from "../components/ListingPage/handleDeleteListing";
+import PropertyDetails from "../components/ListingPage/propertyDetails";
+import AgentInfo from "../components/ListingPage/agentInfo";
+import DeleteConfirmationModal from "../components/ListingPage/deleteConfirmationModal";
+import SimilarListingsCarousel from "../components/ListingPage/similarListingsCarosuel";
+import arrow from "../assets/arrow.png";
 
 const RealEstateDetail = () => {
   const { id } = useParams(); // Track ID from URL parameters

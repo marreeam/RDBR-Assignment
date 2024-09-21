@@ -1,31 +1,17 @@
-import React, { useState, createContext, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header/header";
-import SearchBar from "./components/searchBar/searchBar";
-import Card from "./components/Card/card";
-import AppliedFilters from "./components/AppliedFilters/AppliedFilters";
-import RealEstateDetail from "./components/ListingPage/ListingPage";
+import React, {  createContext, useEffect } from "react";
+import { useRealEstateState } from "../hooks/useRealEstate";
 import {  useLocation } from "react-router-dom";
-
-import AddListingForm from "./components/searchBar/AddListing/AddListingForm";
+import MainLayout from "../templates/MainLayout";
+import SearchBar from "../components/searchBar/searchBar";
+import AppliedFilters from "../components/AppliedFilters/AppliedFilters";
+import Card from "../components/Card/card";
 
 export const ThemeContext = createContext();
 
 function Home() {
-  const [realEstate, setRealEstate] = useState([]);  // Initialize as empty array
-  const [filteredRealEstate, setFilteredRealEstate] = useState([]);
-  const [selectedRegion, setSelectedRegion] = useState([]);
-  const [minSelectedPrice, setMinSelectedPrice] = useState(null);
-  const [maxSelectedPrice, setMaxSelectedPrice] = useState(null);
-  const [minSelectedArea, setMinSelectedArea] = useState(null);
-  const [maxSelectedArea, setMaxSelectedArea] = useState(null);
-  const [bedrooms, setBedrooms] = useState('');
-  const [selectedRegionNames, setSelectedRegionNames] = useState([]); 
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [minArea, setMinArea] = useState('');
-  const [maxArea, setMaxArea] = useState('');
   const location = useLocation();
+  const {
+    realEstate, setRealEstate, selectedRegion, setSelectedRegion, setMinSelectedPrice, setMaxSelectedPrice, setMinSelectedArea, setMaxSelectedArea, setBedrooms, bedrooms, selectedRegionNames, setSelectedRegionNames, minSelectedPrice, maxSelectedPrice, minPrice, maxPrice, setMaxPrice, setMinPrice, minSelectedArea, maxSelectedArea, minArea, setMinArea, maxArea, setMaxArea,setFilteredRealEstate,filteredRealEstate } = useRealEstateState();
 
 
   useEffect(() => {
@@ -66,33 +52,16 @@ function Home() {
 
   return (
     <ThemeContext.Provider value={{ realEstate, setRealEstate, selectedRegion, setSelectedRegion, setMinSelectedPrice, setMaxSelectedPrice, setMinSelectedArea, setMaxSelectedArea, setBedrooms, bedrooms, selectedRegionNames, setSelectedRegionNames, selectedRegion, minSelectedPrice, maxSelectedPrice, minPrice, maxPrice, setMaxPrice, setMinPrice, minSelectedArea, maxSelectedArea, minArea, setMinArea, maxArea, setMaxArea,setFilteredRealEstate,filteredRealEstate }}>
-      <div> 
-        <Header />
-        <Routes>
-          {/* Home Route */}
-          <Route
-            path="/"
-            element={
-              <>
-                <SearchBar />
+       <MainLayout>
+       <SearchBar />
                 <AppliedFilters />
                 <div className=" relative top-[225px] left-[162px]">
                 <Card  filteredRealEstate={filteredRealEstate} />
                 </div>
-                {/* Added p element */}
-                {filteredRealEstate.length === 0 && (
-                  <p className='font-fira-go text-[20px] font-normal leading-[24px] text-center w-[504px] h-[24px] top-[334px] left-[162px] absolute' style={{ color: 'rgba(2, 21, 38, 0.7)' }}>
-                    აღნიშნული მონაცემებით განცხადება არ მოძებნა
-                  </p>
-                )}
-              </>
-            }
-          />
-          {/* Real Estate Detail Route */}
-          <Route path="/real-estate/:id" element={<RealEstateDetail />} />
-          <Route path="/AddListing" element={<AddListingForm />} />
-        </Routes>
-      </div>
+
+       </MainLayout>
+
+
     </ThemeContext.Provider>
   );
 }

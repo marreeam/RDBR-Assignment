@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import BoxModel from '../boxModel/boxModel.js'; // Import the BoxModel component
 import box from '../../../assets/checkbox.png'; // Unchecked image
 import checkedbox from '../../../assets/checkbox1.png'; // Checked image
-import { ThemeContext } from '../../../home.js';
+import { ThemeContext } from '../../../pages/home';
 
 const Region = () => {
   const [regions, setRegions] = useState([]);

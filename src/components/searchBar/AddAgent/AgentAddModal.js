@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-const AgentAddModal = ({ showModal, closeModal }) => {
+const AgentAddModal = ({  closeModal }) => {
   const [selectedImage, setSelectedImage] = useState(null); // To store and show the selected image
 
   const {

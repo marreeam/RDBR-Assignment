@@ -2,7 +2,7 @@ import React from 'react';
 import Region from './region/region';
 import PriceCategory from './Price category/PriceCategory';
 import Area from './area/area';
-import AddListing from "./AddListing/AddListing";
+import AddListing from "../../pages/AddListing";
 import AddAgent from "./AddAgent/AddAgent";
 import Bedrooms from './bedrooms/bedrooms';
 

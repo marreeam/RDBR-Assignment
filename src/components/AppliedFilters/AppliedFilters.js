@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
-import { ThemeContext } from "../../home";
+import { ThemeContext } from "../../pages/home";
 import deleteIcon from "../../assets/x.png";
-import box from '../../assets/checkbox.png'; // Unchecked image
-import checkedbox from '../../assets/checkbox1.png'; // Checked image
 const AppliedFilters = () => {
   const { 
     selectedRegionNames, 
