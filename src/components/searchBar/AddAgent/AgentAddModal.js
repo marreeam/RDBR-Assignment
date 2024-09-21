@@ -74,10 +74,7 @@ const AgentAddModal = ({ closeModal }) => {
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('name', {
                   required: 'სახელი აუცილებელია',
-                  minLength: {
-                    value: 2,
-                    message: 'სახელი უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან',
-                  },
+                 
                 })}
               />
               <p className={`text-[14px] ${nameValue.length >= 2 ? 'text-green-500' : 'text-red-500'}`}>
@@ -92,10 +89,7 @@ const AgentAddModal = ({ closeModal }) => {
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('surname', {
                   required: 'გვარი აუცილებელია',
-                  minLength: {
-                    value: 2,
-                    message: 'გვარი უნდა შედგებოდეს მინიმუმ 2 სიმბოლოსგან',
-                  },
+                 
                 })}
               />
               <p className={`text-[14px] ${surnameValue.length >= 2 ? 'text-green-500' : 'text-red-500'}`}>
@@ -114,10 +108,7 @@ const AgentAddModal = ({ closeModal }) => {
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('phone', {
                   required: 'ტელ-ნომერი აუცილებელია',
-                  pattern: {
-                    value: /^[0-9]{9}$/,
-                    message: 'ტელეფონის ნომერი უნდა იყოს ფორმატში 9 ციფრი',
-                  },
+                 
                 })}
               />
               <p className={`text-[14px] ${/^[0-9]{9}$/.test(phoneValue) ? 'text-green-500' : 'text-red-500'}`}>
@@ -133,10 +124,7 @@ const AgentAddModal = ({ closeModal }) => {
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
                 {...register('email', {
                   required: 'ელ-ფოსტა აუცილებელია',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@redberry\.ge$/,
-                    message: 'ელ-ფოსტა უნდა მთავრდებოდეს @redberry.ge-თი',
-                  },
+                 
                 })}
               />
               <p className={`text-[14px] ${/^[a-zA-Z0-9._%+-]+@redberry\.ge$/.test(emailValue) ? 'text-green-500' : 'text-red-500'}`}>

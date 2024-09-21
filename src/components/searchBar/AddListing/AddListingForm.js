@@ -13,6 +13,14 @@ const AddListingForm = () => {
   const { selectedImage, handleImageChange } = useImagePreview();
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const AddressValue = watch('address', '');
+  const selectedRegion = watch('region');
+  const ZipcodeValue=watch("zip_code","");
+  const PriceValue=watch("price","");
+  const AreaValue=watch("area","");
+  const DescriptionValue=watch("description","");
+  const BedroomsValue=watch("bedrooms","");
+
   
 
   // Fetch regions data
@@ -32,7 +40,7 @@ const AddListingForm = () => {
   }, []);
 
   // Watch the selected region value
-  const selectedRegion = watch('region');
+
 
   useEffect(() => {
     
@@ -104,7 +112,9 @@ const AddListingForm = () => {
       console.error('Error:', error);
     }
   };
-
+const handleCalcel=()=>{
+  navigate("/")
+}
 
   return (
     <div>
@@ -143,18 +153,31 @@ const AddListingForm = () => {
               <label className="block mb-2 text-[14px]">მისამართი *</label>
               <input
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
-                {...register('address', { required: 'გთხოვთ, შეიყვანეთ მისამართი' })}
+                {...register('address', {
+                   required: 'გთხოვთ, შეიყვანეთ მისამართი' ,
+                 })}
               />
+               <p className={`text-[14px] ${AddressValue.length >= 2 ? 'text-green-500' : 'text-red-500'}`}>
+                ✔️ მინიმუმ ორი სიმბოლო
+              </p>
               {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address.message}</p>}
             </div>
+            
 
             {/* ZIP Code */}
             <div className="w-1/2">
               <label className="block mb-2 text-[14px]">საფოსტო ინდექსი *</label>
               <input
+              type='number'
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
-                {...register('zip_code', { required: 'გთხოვთ, შეიყვანეთ საფოსტო ინდექსი' })}
+                {...register('zip_code', { 
+                  required: 'გთხოვთ, შეიყვანეთ საფოსტო ინდექსი',
+                 
+                 })}
               />
+              <p className={`text-[14px] ${/^[0-9]+$/.test(ZipcodeValue) ? 'text-green-500' : 'text-red-500'}`}>
+                ✔️ მხოლოდ რიცხვები
+              </p>
               {errors.zip_code && <p className="text-red-500 text-sm mt-1">{errors.zip_code.message}</p>}
             </div>
           </div>
@@ -204,9 +227,15 @@ const AddListingForm = () => {
               <div className="w-1/2">
                 <label className="block mb-2 text-[14px]">ფასი *</label>
                 <input
+                type='number'
                   className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
-                  {...register('price', { required: 'გთხოვთ, შეიყვანეთ ფასი' })}
+                  {...register('price', { required: 'გთხოვთ, შეიყვანეთ ფასი' ,
+                   
+                  })}
                 />
+                 <p className={`text-[14px] ${/^[0-9]+$/.test(PriceValue)? 'text-green-500' : 'text-red-500'}`}>
+                ✔️ მხოლოდ რიცხვები
+              </p>
                 {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price.message}</p>}
               </div>
 
@@ -214,10 +243,15 @@ const AddListingForm = () => {
               <div className="w-1/2">
                 <label className="block mb-2 text-[14px]">ფართობი *</label>
                 <input
+                type='number'
                   className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
-                  {...register('area', { required: 'გთხოვთ, შეიყვანეთ ფართობი' })}
+                  {...register('area', { required: 'გთხოვთ, შეიყვანეთ ფართობი' ,})}
                 />
+                 <p className={`text-[14px] ${/^[0-9]+$/.test(AreaValue) ? 'text-green-500' : 'text-red-500'}`}>
+                ✔️ მხოლოდ რიცხვები
+              </p>
                 {errors.area && <p className="text-red-500 text-sm mt-1">{errors.area.message}</p>}
+
               </div>
             </div>
 
@@ -225,9 +259,13 @@ const AddListingForm = () => {
             <div className="">
               <label className="block mb-2 text-[14px]">საძინებლების რაოდენობა *</label>
               <input
+              type='number'
                 className="w-[384px] h-[42px] px-3 border border-solid border-[#808A93] rounded-[6px]"
-                {...register('bedrooms', { required: 'გთხოვთ, შეიყვანეთ საძინებლების რაოდენობა' })}
+                {...register('bedrooms', { required: 'გთხოვთ, შეიყვანეთ საძინებლების რაოდენობა',})}
               />
+               <p className={`text-[14px] ${/^[0-9]+$/.test(BedroomsValue) ? 'text-green-500' : 'text-red-500'}`}>
+                ✔️ მხოლოდ რიცხვები
+              </p>
               {errors.bedrooms && <p className="text-red-500 text-sm mt-1">{errors.bedrooms.message}</p>}
             </div>
 
@@ -236,8 +274,12 @@ const AddListingForm = () => {
               <label className="block mb-2 text-[14px]">აღწერა *</label>
               <textarea
                 className="w-[788px] h-[135px] px-3 border border-solid border-[#808A93] rounded-[6px]"
-                {...register('description', { required: 'გთხოვთ, შეიყვანეთ აღწერა' })}
+                {...register('description', { required: 'გთხოვთ, შეიყვანეთ აღწერა' , minLength: {
+                 }})}
               />
+              <p className={`text-[14px] ${DescriptionValue.length >= 5 ? 'text-green-500' : 'text-red-500'}`}>
+                ✔️ მინიმუმ ხუთი სიმბოლო
+              </p>
               {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
             </div>
           </div>
@@ -266,6 +308,7 @@ const AddListingForm = () => {
           {/* Submit Button */}
           <div className="flex justify-between mt-6">
             <button
+            onClick={handleCalcel}
               type="button"
               className="relative px-6 pt-[10px] pb-[16px] rounded-lg left-[450px]"
               style={{ border: '1px solid rgba(249, 59, 29, 1)', color: 'rgba(249, 59, 29, 1)' }}

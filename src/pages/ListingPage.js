@@ -23,6 +23,13 @@ const RealEstateDetail = () => {
     fetchRealEstateDetails(id, setRealEstateId, setLoading, realEstate, setSimilarListings);
   }, [id, realEstate]); // Listen to changes in `id`
 
+useEffect(() => {
+  // Save realEstate data to localStorage when it updates
+  if (realEstate.length > 0) {
+    localStorage.setItem("realEstate", JSON.stringify(realEstate));
+  }
+}, [realEstate]);
+
   const fetchRealEstateDetails = (id, setRealEstateId, setLoading, realEstate, setSimilarListings) => {
     // setLoading(true); // Set loading state true when fetching new data
     fetch(`https://api.real-estate-manager.redberryinternship.ge/api/real-estates/${id}`, {
